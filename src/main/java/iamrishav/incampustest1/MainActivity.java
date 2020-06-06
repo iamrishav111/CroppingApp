@@ -24,6 +24,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
 import java.io.IOException;
+import java.time.Instant;
 import java.util.List;
 
 import butterknife.BindView;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     @BindView(R.id.img_profile)
     ImageView imgProfile;
+//    private Instant GlideApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

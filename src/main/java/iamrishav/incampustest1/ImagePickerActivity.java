@@ -1,7 +1,6 @@
 package iamrishav.incampustest1;
 
 import android.Manifest;
-import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -216,13 +215,13 @@ public class ImagePickerActivity extends AppCompatActivity {
     private void setResultOk(Uri imagePath) {
         Intent intent = new Intent();
         intent.putExtra("path", imagePath);
-        setResult(Activity.RESULT_OK, intent);
+        setResult(AppCompatActivity.RESULT_OK, intent);
         finish();
     }
 
     private void setResultCancelled() {
         Intent intent = new Intent();
-        setResult(Activity.RESULT_CANCELED, intent);
+        setResult(AppCompatActivity.RESULT_CANCELED, intent);
         finish();
     }
 
