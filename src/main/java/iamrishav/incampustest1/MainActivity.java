@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.karumi.dexter.Dexter;
@@ -26,28 +27,31 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.List;
+import java.util.Objects;
 
-import butterknife.BindView;
+/*import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import butterknife.OnClick;*/
 
 public class MainActivity extends AppCompatActivity {
-
     private static final String TAG = MainActivity.class.getSimpleName();
     public static final int REQUEST_IMAGE = 100;
 
-    @BindView(R.id.img_profile)
+    //    @BindView(R.id.img_profile)
+//    ImageView imgProfile;
     ImageView imgProfile;
-//    private Instant GlideApp;
-
+    Toolbar toolbar;
+    //    ImageView imgPlus=(ImageView)findViewById(R.id.img_plus);
+//
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+//        ButterKnife.bind(this);
+        imgProfile=findViewById(R.id.img_profile);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle(null);
 
         loadProfileDefault();
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         // call this once the bitmap(s) usage is over
         ImagePickerActivity.clearCache(this);
     }
+    //
     private void loadProfile(String url) {
         Log.d(TAG, "Image cache path: " + url);
 
@@ -71,8 +76,31 @@ public class MainActivity extends AppCompatActivity {
         imgProfile.setColorFilter(ContextCompat.getColor(this, R.color.profile_default_tint));
     }
 
-    @OnClick({R.id.img_plus, R.id.img_profile})
-    void onProfileImageClick() {
+//    @OnClick({R.id.img_plus, R.id.img_profile})
+//    void onProfileImageClick() {
+//        Dexter.withActivity(this)
+//                .withPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+//                .withListener(new MultiplePermissionsListener() {
+//                    @Override
+//                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+//                        if (report.areAllPermissionsGranted()) {
+//                            showImagePickerOptions();
+//                        }
+//
+//                        if (report.isAnyPermissionPermanentlyDenied()) {
+//                            showSettingsDialog();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+//                        token.continuePermissionRequest();
+//                    }
+//                }).check();
+//    }
+//
+
+    public void onProfileImageClick(View view) {
         Dexter.withActivity(this)
                 .withPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .withListener(new MultiplePermissionsListener() {
@@ -93,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }).check();
     }
-
     private void showImagePickerOptions() {
         ImagePickerActivity.showImagePickerOptions(this, new ImagePickerActivity.PickerOptionListener() {
             @Override
@@ -135,7 +162,6 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_Y, 1);
         startActivityForResult(intent, REQUEST_IMAGE);
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -181,4 +207,5 @@ public class MainActivity extends AppCompatActivity {
         intent.setData(uri);
         startActivityForResult(intent, 101);
     }
+
 }

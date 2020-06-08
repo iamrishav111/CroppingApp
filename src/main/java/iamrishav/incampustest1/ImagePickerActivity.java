@@ -1,6 +1,7 @@
 package iamrishav.incampustest1;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -25,11 +26,11 @@ import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
 import java.util.List;
+import java.util.Objects;
 
 import static androidx.core.content.FileProvider.getUriForFile;
 
 public class ImagePickerActivity extends AppCompatActivity {
-
     private static final String TAG = ImagePickerActivity.class.getSimpleName();
     public static final String INTENT_IMAGE_PICKER_OPTION = "image_picker_option";
     public static final String INTENT_ASPECT_RATIO_X = "aspect_ratio_x";
@@ -54,6 +55,7 @@ public class ImagePickerActivity extends AppCompatActivity {
 
         void onChooseGallerySelected();
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -147,6 +149,7 @@ public class ImagePickerActivity extends AppCompatActivity {
                 }).check();
 
     }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
@@ -215,13 +218,13 @@ public class ImagePickerActivity extends AppCompatActivity {
     private void setResultOk(Uri imagePath) {
         Intent intent = new Intent();
         intent.putExtra("path", imagePath);
-        setResult(AppCompatActivity.RESULT_OK, intent);
+        setResult(Activity.RESULT_OK, intent);
         finish();
     }
 
     private void setResultCancelled() {
         Intent intent = new Intent();
-        setResult(AppCompatActivity.RESULT_CANCELED, intent);
+        setResult(Activity.RESULT_CANCELED, intent);
         finish();
     }
 
